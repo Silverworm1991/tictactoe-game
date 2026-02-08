@@ -67,19 +67,21 @@ public class Main extends Application {
       if (checkGameOver('X')) return;
 
       currentPlayer = 'O';
-      gameView.getBoardGrid().setDisable(true); // Prevent clicks while AI thinks
+      gameView.getBoardGrid().setDisable(true);
 
       PauseTransition pause = new PauseTransition(Duration.seconds(0.6));
       pause.setOnFinished(
-          event -> {
-            makeComputerMove();
-            gameView.getBoardGrid().setDisable(false);
-            currentPlayer = 'X';
-          });
+              event -> {
+                makeComputerMove();
+                // Only re-enable if the computer didn't just win or fill the board
+                if (!board.checkWin('O') && !board.isFull()) {
+                  gameView.getBoardGrid().setDisable(false);
+                  currentPlayer = 'X';
+                }
+              });
       pause.play();
     }
   }
-
   private void makeComputerMove() {
     int[] choice = board.getBestMove();
     if (choice[0] == -1) return;
