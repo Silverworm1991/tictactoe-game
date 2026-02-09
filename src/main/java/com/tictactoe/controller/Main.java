@@ -62,7 +62,7 @@ public class Main extends Application {
   }
 
   private void handlePlayerMove(int row, int col, Text text) {
-    if (currentPlayer == 'X' && board.placeMove(row, col, 'X') && text.getText().isEmpty()) {
+    if (currentPlayer == 'X' && text.getText().isEmpty() && board.placeMove(row, col, 'X')) {
       updateCell(text, 'X');
       if (checkGameOver('X')) return;
 
@@ -71,17 +71,14 @@ public class Main extends Application {
 
       PauseTransition pause = new PauseTransition(Duration.seconds(0.6));
       pause.setOnFinished(
-              event -> {
-                makeComputerMove();
-                // Only re-enable if the computer didn't just win or fill the board
-                if (!board.checkWin('O') && !board.isFull()) {
-                  gameView.getBoardGrid().setDisable(false);
-                  currentPlayer = 'X';
-                }
-              });
+          event -> {
+            makeComputerMove();
+            // Don't re-enable here; checkGameOver handles the state!
+          });
       pause.play();
     }
   }
+
   private void makeComputerMove() {
     int[] choice = board.getBestMove();
     if (choice[0] == -1) return;
@@ -98,7 +95,9 @@ public class Main extends Application {
         break;
       }
     }
-    checkGameOver('O');
+
+    // FIX: Wait for the UI to render the 'O' before showing the Game Over popup
+    javafx.application.Platform.runLater(() -> checkGameOver('O'));
   }
 
   private void updateCell(Text text, char player) {
