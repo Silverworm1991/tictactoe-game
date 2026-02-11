@@ -1,35 +1,60 @@
+/* Main application background and padding */
 .root {
-    -fx-background-color: #2c3e50;
-    -fx-padding: 20;
+    -fx-background-color: #2c3e50; /* Dark blue-gray background */
+    -fx-padding: 20;               /* Consistent spacing around edges */
 }
 
+/* Individual game cell styling */
 .cell {
-    -fx-background-color: #34495e;
-    -fx-background-radius: 10;
-    -fx-cursor: hand;
+    -fx-background-color: #34495e;              /* Slightly lighter gray for cells */
+    -fx-background-radius: 10;                  /* Rounded corners for modern look */
+    -fx-cursor: hand;                           /* Pointer cursor on hover */
+    -fx-transition: -fx-background-color 0.3s ease; /* Smooth color transitions */
 }
 
+/* Cell hover effects for user feedback */
 .cell:hover {
-    -fx-background-color: #485e74;
+    -fx-background-color: #485e74; /* Lighter shade on hover */
+    -fx-scale-x: 1.05;             /* Slight growth effect */
+    -fx-scale-y: 1.05;             /* Maintains proportions */
 }
 
+/* Styling for X symbols */
 .text-x {
-    -fx-fill: #3498db;
-    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.5), 10, 0, 0, 0);
+    -fx-fill: #3498db; /* Bright blue color */
+    /* Glowing shadow effect for visual impact */
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.8), 15, 0, 0, 0);
 }
 
+/* Styling for O symbols */
 .text-o {
-    -fx-fill: #e74c3c;
-    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.5), 10, 0, 0, 0);
+    -fx-fill: #e74c3c; /* Bright red color */
+    /* Glowing shadow effect for visual impact */
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.8), 15, 0, 0, 0);
 }
 
+/* Reset button styling (if implemented) */
 .reset-button {
-    -fx-background-color: #e67e22;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-padding: 10 20;
-    -fx-background-radius: 5;
+    -fx-background-color: #e67e22; /* Orange background */
+    -fx-text-fill: white;          /* White text */
+    -fx-font-size: 16px;           /* Readable font size */
+    -fx-padding: 10 20;            /* Internal spacing */
+    -fx-background-radius: 5;      /* Rounded corners */
 }
+
+/* Reset button hover effect */
 .reset-button:hover {
-    -fx-background-color: #d35400;
+    -fx-background-color: #d35400; /* Darker orange on hover */
+}
+
+/* Winning line animation styling */
+.winning-line {
+    /* Golden glow effect for winning line */
+    -fx-effect: dropshadow(gaussian, gold, 10, 0, 0, 0);
+}
+
+/* Celebration effects (reserved for future use) */
+.celebration {
+    /* White glowing effect for celebration elements */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.8), 20, 0, 0, 0);
 }
