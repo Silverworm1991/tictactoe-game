@@ -4,6 +4,7 @@ import com.tictactoe.model.Board;
 import com.tictactoe.view.GameView;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -96,8 +97,13 @@ public class Main extends Application {
       }
     }
 
-    // FIX: Wait for the UI to render the 'O' before showing the Game Over popup
-    javafx.application.Platform.runLater(() -> checkGameOver('O'));
+    Platform.runLater(() -> {
+      boolean gameOver = checkGameOver('O');
+      if (!gameOver) {
+        currentPlayer = 'X'; // Switch back to human
+        gameView.getBoardGrid().setDisable(false); // Re-enable board for human turn
+      }
+    });
   }
 
   private void updateCell(Text text, char player) {
